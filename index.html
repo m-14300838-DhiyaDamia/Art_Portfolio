@@ -41,13 +41,8 @@
             </span>
         </div>
         
-        <!-- Pautan Menu & Counter Pengunjung -->
+        <!-- Pautan Menu -->
         <div class="flex items-center gap-1.5 sm:gap-3 text-xs font-semibold shrink-0">
-            <!-- Counter Pengunjung -->
-            <div class="bg-purple-100/80 text-purple-800 px-2 py-1 rounded-full flex items-center gap-1 text-[11px] sm:text-xs border border-purple-200" title="Jumlah Pengunjung">
-                <span>👁️</span>
-                <span id="visitor-count" class="font-bold">...</span>
-            </div>
             <a href="#galeri" class="px-2 py-1 sm:px-3 sm:py-1.5 rounded-full hover:bg-purple-100 text-purple-700 transition">🎨 Galeri</a>
             <a href="#tentang" class="px-2.5 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-purple-600 text-white hover:bg-purple-700 transition shadow-sm whitespace-nowrap">✨ Mengenai</a>
         </div>
@@ -83,7 +78,7 @@
             <p class="text-slate-500 text-xs mt-1">Tekan gambar untuk skrin penuh & berikan rating bintang ⭐️</p>
         </div>
         
-        <!-- Grid Auto Layout 12 Kad -->
+        <!-- Grid Auto Layout Kad -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             
             <!-- Lukisan 1 -->
@@ -416,189 +411,8 @@
                 </div>
             </div>
 
-            <!-- Lukisan 12 -->
-            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group">
-                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center cursor-pointer" onclick="openLightbox('12.png', 'Lukisan 12')">
-                    <img src="12.png" alt="Lukisan Dhiya 12" class="w-full h-full object-contain p-1 transition duration-300 group-hover:scale-105">
-                    <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">✍️ Dhiya Damia</div>
-                </div>
-                <div class="px-1 mt-auto">
-                    <div class="flex justify-between items-center mb-2">
-                        <div>
-                            <h3 class="font-art text-base font-bold text-slate-800">Lukisan 12</h3>
-                            <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
-                        </div>
-                        <button onclick="openLightbox('12.png', 'Lukisan 12')" class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</button>
-                    </div>
-                    <div class="pt-2 border-t border-purple-100 flex items-center justify-between text-xs">
-                        <span class="text-slate-500 text-[11px]">Rate:</span>
-                        <div class="flex items-center gap-1">
-                            <div class="flex text-amber-400 text-sm">
-                                <span class="star-btn" onclick="rateImage(12, 1)" onmouseenter="previewStars(12, 1)" onmouseleave="resetStarsPreview(12)">★</span>
-                                <span class="star-btn" onclick="rateImage(12, 2)" onmouseenter="previewStars(12, 2)" onmouseleave="resetStarsPreview(12)">★</span>
-                                <span class="star-btn" onclick="rateImage(12, 3)" onmouseenter="previewStars(12, 3)" onmouseleave="resetStarsPreview(12)">★</span>
-                                <span class="star-btn" onclick="rateImage(12, 4)" onmouseenter="previewStars(12, 4)" onmouseleave="resetStarsPreview(12)">★</span>
-                                <span class="star-btn" onclick="rateImage(12, 5)" onmouseenter="previewStars(12, 5)" onmouseleave="resetStarsPreview(12)">★</span>
-                            </div>
-                            <span class="text-[11px] font-bold text-slate-700 ml-1" id="rating-val-12">5.0</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
 
-    <!-- Modal Lightbox (Popup Full Screen) -->
-    <div id="lightbox" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md hidden z-50 flex flex-col justify-center items-center p-4" onclick="closeLightbox()">
-        <button class="absolute top-4 right-4 text-white text-lg bg-white/20 hover:bg-white/30 w-10 h-10 rounded-full flex items-center justify-center border border-white/30">
-            ✕
-        </button>
-        <div class="relative max-w-full max-h-[85vh] p-2 flex flex-col items-center" onclick="event.stopPropagation()">
-            <img id="lightbox-img" class="max-w-full max-h-[75vh] object-contain rounded-xl shadow-2xl border border-white/20" src="" alt="Full Screen Image">
-            <h4 id="lightbox-title" class="font-art text-white text-lg mt-3 font-bold tracking-wide">Tajuk Lukisan</h4>
-        </div>
-    </div>
-
-    <!-- Biodata / Mengenai Dhiya -->
-    <section id="tentang" class="max-w-3xl mx-auto my-10 px-4">
-        <div class="glass-card rounded-3xl p-6 md:p-10 border border-white/80 shadow-md text-center">
-            <div class="inline-block bg-purple-100 text-purple-800 p-2.5 rounded-2xl mb-3 text-2xl">
-                👩‍🎨
-            </div>
-            <h3 class="font-art text-2xl font-bold text-slate-900 mb-1">Mengenai Pelukis Cilik</h3>
-            <p class="text-[10px] uppercase tracking-widest text-purple-600 font-bold mb-4">Profil & Minat</p>
-            
-            <p class="text-slate-600 leading-relaxed text-xs sm:text-sm md:text-base max-w-xl mx-auto">
-                <strong>Dhiya Damia</strong> berumur 11 tahun dan merupakan murid dari <strong>Sekolah Kebangsaan Kota Raja, Panchor, Johor</strong>. Damia mempunyai minat yang amat mendalam dalam dunia lukisan digital dan mengekspresikan imajinasinya melalui aplikasi <strong>Procreate</strong>.
-            </p>
-
-            <div class="mt-6 pt-4 border-t border-purple-100 flex flex-wrap justify-center gap-4 text-xs font-semibold text-slate-700">
-                <span>🎓 SK Kota Raja, Panchor</span>
-                <span>🎨 Procreate Artist</span>
-                <span>🌟 11 Tahun</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="text-center py-6 text-[11px] text-slate-500 border-t border-purple-100/80 bg-white/40 px-4">
-        <p>© 2026 Portfolio Seni Dhiya Damia • Diuruskan dengan kasih sayang oleh Ibunda Tercinta 💕</p>
-    </footer>
-
-    <!-- JavaScript Logic Lengkap -->
-    <script>
-        // 1. Visitor Counter (Auto Increment)
-        function updateVisitorCount() {
-            const countElement = document.getElementById('visitor-count');
-            let visits = parseInt(localStorage.getItem('dhiya_total_visitors') || '0');
-            
-            if (!sessionStorage.getItem('visited_this_session')) {
-                visits += 1;
-                localStorage.setItem('dhiya_total_visitors', visits);
-                sessionStorage.setItem('visited_this_session', 'true');
-            }
-            if (countElement) countElement.innerText = visits.toLocaleString();
-        }
-        updateVisitorCount();
-
-        // 2. Sistem Rating Bintang Kumulatif Lengkap
-        function rateImage(imgId, newStar) {
-            // Semak jika pengguna sudah pernah mengundi lukisan ini
-            if (localStorage.getItem(`has_voted_img_${imgId}`)) {
-                alert(`Anda sudah pun memberikan rating untuk Lukisan ${imgId}!`);
-                return;
-            }
-
-            // Ambil data undian lama (Nilai laluan awal: 1 undian asas bernilai 5 bintang)
-            let totalVotes = parseInt(localStorage.getItem(`votes_count_img_${imgId}`) || '1');
-            let totalStars = parseInt(localStorage.getItem(`stars_sum_img_${imgId}`) || '5');
-
-            // Tambah undian baru pengguna
-            totalVotes += 1;
-            totalStars += newStar;
-
-            // Simpan rekod baru ke localStorage
-            localStorage.setItem(`votes_count_img_${imgId}`, totalVotes);
-            localStorage.setItem(`stars_sum_img_${imgId}`, totalStars);
-            localStorage.setItem(`has_voted_img_${imgId}`, 'true');
-
-            // Kemaskini paparan rating kumulatif & warna bintang
-            calculateAndDisplayRating(imgId);
-            alert(`Terima kasih! Rating ${newStar} ⭐️ anda telah direkodkan.`);
-        }
-
-        function calculateAndDisplayRating(imgId) {
-            let totalVotes = parseInt(localStorage.getItem(`votes_count_img_${imgId}`) || '1');
-            let totalStars = parseInt(localStorage.getItem(`stars_sum_img_${imgId}`) || '5');
-
-            // Kira Purata Kumulatif: (Jumlah Bintang / Jumlah Pengundi)
-            let avg = (totalStars / totalVotes).toFixed(1);
-
-            const valElem = document.getElementById(`rating-val-${imgId}`);
-            if (!valElem) return;
-
-            const card = valElem.closest('.glass-card');
-            if (!card) return;
-
-            // Warnakan bintang berdasarkan purata semasa
-            const roundedAvg = Math.round(avg);
-            const starBtns = card.querySelectorAll('.star-btn');
-            
-            starBtns.forEach((star, idx) => {
-                if (idx < roundedAvg) {
-                    star.style.color = '#f59e0b'; // Kuning / Emas
-                } else {
-                    star.style.color = '#cbd5e1'; // Kelabu
-                }
-            });
-
-            // Papar angka purata kumulatif
-            valElem.innerText = avg;
-        }
-
-        // Kesan visual semasa tetikus hover di atas bintang
-        function previewStars(imgId, starCount) {
-            const valElem = document.getElementById(`rating-val-${imgId}`);
-            if (!valElem) return;
-
-            const card = valElem.closest('.glass-card');
-            if (!card) return;
-
-            const starBtns = card.querySelectorAll('.star-btn');
-            starBtns.forEach((star, idx) => {
-                if (idx < starCount) {
-                    star.style.color = '#f59e0b';
-                } else {
-                    star.style.color = '#cbd5e1';
-                }
-            });
-        }
-
-        // Kembalikan warna bintang mengikut nilai rating sebenar selepas tetikus dialih
-        function resetStarsPreview(imgId) {
-            calculateAndDisplayRating(imgId);
-        }
-
-        // Muat turun nilai rating untuk kesemua 12 lukisan semasa laman dimuat naik
-        window.addEventListener('DOMContentLoaded', () => {
-            for (let i = 1; i <= 12; i++) {
-                calculateAndDisplayRating(i);
-            }
-        });
-
-        // 3. Lightbox Functionality (Popup Gambar)
-        function openLightbox(imageSrc, title) {
-            document.getElementById('lightbox-img').src = imageSrc;
-            document.getElementById('lightbox-title').innerText = title;
-            document.getElementById('lightbox').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-    </script>
 </body>
 </html>
