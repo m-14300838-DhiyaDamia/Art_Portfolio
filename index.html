@@ -510,95 +510,77 @@
     </footer>
 
     <!-- JavaScript Logic -->
+
     <script>
-        // 1. Visitor Counter API
-       async function updateVisitorCount() {
-    const countElement = document.getElementById('visitor-count');
-    
-    // Simpan & Tambah kiraan pengunjung tempatan
-    let localVisits = parseInt(localStorage.getItem('dhiya_views') || '120');
-    localVisits += 1;
-    localStorage.setItem('dhiya_views', localVisits);
-
-    try {
-        const res = await fetch('https://api.counterapi.dev/v1/dhiya_art_gallery_2026/visits/up');
-        const data = await res.json();
-        
-        if (data && data.count) {
-            countElement.innerText = data.count.toLocaleString();
-        } else {
-            countElement.innerText = localVisits.toLocaleString();
+        // 1. Visitor Counter
+        function updateVisitorCount() {
+            const countElement = document.getElementById('visitor-count');
+            let visits = parseInt(localStorage.getItem('dhiya_total_visitors') || '142');
+            
+            if (!sessionStorage.getItem('visited_this_session')) {
+                visits += 1;
+                localStorage.setItem('dhiya_total_visitors', visits);
+                sessionStorage.setItem('visited_this_session', 'true');
+            }
+            countElement.innerText = visits.toLocaleString();
         }
-    } catch (err) {
-        countElement.innerText = localVisits.toLocaleString();
-    }
-}
-updateVisitorCount();
+        updateVisitorCount();
 
-        // 2. Interactive Cumulative Rating Engine (Purata Pelawat)
-async function rateImage(imgId, stars) {
-    // Semak jika pengguna sudah pernah undi lukisan ini
-    if (localStorage.getItem(`voted_img_${imgId}`)) {
-        alert("Anda sudah memberikan rating untuk lukisan ini!");
-        return;
-    }
+        // 2. Sistem Rating Kumulatif & Purata
+        function rateImage(imgId, newStar) {
+            // Semak jika pengguna sudah pernah undi
+            if (localStorage.getItem(`has_voted_img_${imgId}`)) {
+                alert(`Anda sudah berikan rating untuk Lukisan ${imgId}!`);
+                return;
+            }
 
-    try {
-        // Hantar jumlah undian (count +1) dan jumlah bintang ke server
-        await fetch(`https://api.counterapi.dev/v1/damia_art_card_${imgId}/votes/up`);
-        await fetch(`https://api.counterapi.dev/v1/damia_art_card_${imgId}/stars/up?amount=${stars}`);
-        
-        localStorage.setItem(`voted_img_${imgId}`, stars);
-        alert(`Terima kasih! Rating ${stars} ⭐️ anda telah disimpan.`);
-        
-        // Kemaskini paparan skrin
-        loadCumulativeRating(imgId);
-    } catch (err) {
-        alert("Gagal menyimpan rating. Sila cuba lagi.");
-    }
-}
+            // Ambil data lama (jika ada)
+            let totalVotes = parseInt(localStorage.getItem(`votes_count_img_${imgId}`) || '3'); // Asal 3 pengundi
+            let totalStars = parseInt(localStorage.getItem(`stars_sum_img_${imgId}`) || '15');  // Asal 15 bintang (purata 5.0)
 
-async function loadCumulativeRating(imgId) {
-    try {
-        // Ambil data jumlah undi & jumlah bintang dari server
-        const resVotes = await fetch(`https://api.counterapi.dev/v1/damia_art_card_${imgId}/votes`);
-        const resStars = await fetch(`https://api.counterapi.dev/v1/damia_art_card_${imgId}/stars`);
-        
-        const dataVotes = await resVotes.json();
-        const dataStars = await resStars.json();
+            // Tambah undian baru
+            totalVotes += 1;
+            totalStars += newStar;
 
-        const totalVotes = dataVotes.count || 0;
-        const totalStars = dataStars.count || 0;
+            // Simpan data baru
+            localStorage.setItem(`votes_count_img_${imgId}`, totalVotes);
+            localStorage.setItem(`stars_sum_img_${imgId}`, totalStars);
+            localStorage.setItem(`has_voted_img_${imgId}`, 'true');
 
-        // Kira purata kumulatif: (Jumlah Bintang / Jumlah Undi)
-        let average = totalVotes > 0 ? (totalStars / totalVotes) : 5.0;
-        if (average > 5) average = 5.0; // Pengehad maksimum
+            // Kemaskini Paparan
+            calculateAndDisplayRating(imgId);
+            alert(`Terima kasih! Rating ${newStar} ⭐️ anda telah direkodkan.`);
+        }
 
-        updateStarUI(imgId, Math.round(average), average.toFixed(1));
-    } catch (err) {
-        // Paparan asal jika offline
-        updateStarUI(imgId, 5, "5.0");
-    }
-}
+        function calculateAndDisplayRating(imgId) {
+            let totalVotes = parseInt(localStorage.getItem(`votes_count_img_${imgId}`) || '3');
+            let totalStars = parseInt(localStorage.getItem(`stars_sum_img_${imgId}`) || '15');
 
-function updateStarUI(imgId, starCount, scoreText) {
-    const card = document.getElementById(`rating-val-${imgId}`)?.closest('.glass-card');
-    if (!card) return;
-    
-    const starBtns = card.querySelectorAll('.star-btn');
-    starBtns.forEach((star, idx) => {
-        star.style.color = (idx < starCount) ? '#f59e0b' : '#cbd5e1';
-    });
-    
-    document.getElementById(`rating-val-${imgId}`).innerText = scoreText;
-}
+            // Kira Purata: (Jumlah Bintang / Jumlah Pengundi)
+            let avg = (totalStars / totalVotes).toFixed(1);
 
-// Muat turun rating kumulatif untuk semua 12 lukisan semasa laman dibuka
-window.addEventListener('DOMContentLoaded', () => {
-    for (let i = 1; i <= 12; i++) {
-        loadCumulativeRating(i);
-    }
-});
+            const card = document.getElementById(`rating-val-${imgId}`)?.closest('.glass-card');
+            if (!card) return;
+
+            // Kemaskini warna bintang berdasarkan purata bulat
+            const starBtns = card.querySelectorAll('.star-btn');
+            const roundedAvg = Math.round(avg);
+            
+            starBtns.forEach((star, idx) => {
+                star.style.color = (idx < roundedAvg) ? '#f59e0b' : '#cbd5e1';
+            });
+
+            // Papar angka purata kumulatif
+            document.getElementById(`rating-val-${imgId}`).innerText = avg;
+        }
+
+        // Muat turun rating semasa laman dibuka
+        window.addEventListener('DOMContentLoaded', () => {
+            for (let i = 1; i <= 12; i++) {
+                calculateAndDisplayRating(i);
+            }
+        });
+
         // 3. Lightbox Functionality
         function openLightbox(imageSrc, title) {
             document.getElementById('lightbox-img').src = imageSrc;
