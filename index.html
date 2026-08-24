@@ -535,39 +535,70 @@
 }
 updateVisitorCount();
 
-        // 2. Interactive Star Rating Engine
-        function rateImage(imgId, stars) {
-            localStorage.setItem(`damia_rating_img_${imgId}`, stars);
-            updateStarUI(imgId, stars);
-            alert(`Terima kasih! Anda telah memberi ${stars} ⭐️ untuk Lukisan ${imgId}.`);
-        }
+        // 2. Interactive Cumulative Rating Engine (Purata Pelawat)
+async function rateImage(imgId, stars) {
+    // Semak jika pengguna sudah pernah undi lukisan ini
+    if (localStorage.getItem(`voted_img_${imgId}`)) {
+        alert("Anda sudah memberikan rating untuk lukisan ini!");
+        return;
+    }
 
-        function updateStarUI(imgId, stars) {
-            const card = document.getElementById(`rating-val-${imgId}`)?.closest('.glass-card');
-            if (!card) return;
-            
-            const starBtns = card.querySelectorAll('.star-btn');
-            starBtns.forEach((star, idx) => {
-                if (idx < stars) {
-                    star.style.color = '#f59e0b'; // Gold
-                } else {
-                    star.style.color = '#cbd5e1'; // Gray
-                }
-            });
-            
-            document.getElementById(`rating-val-${imgId}`).innerText = parseFloat(stars).toFixed(1);
-        }
-
+    try {
+        // Hantar jumlah undian (count +1) dan jumlah bintang ke server
+        await fetch(`https://api.counterapi.dev/v1/damia_art_card_${imgId}/votes/up`);
+        await fetch(`https://api.counterapi.dev/v1/damia_art_card_${imgId}/stars/up?amount=${stars}`);
         
+        localStorage.setItem(`voted_img_${imgId}`, stars);
+        alert(`Terima kasih! Rating ${stars} ⭐️ anda telah disimpan.`);
+        
+        // Kemaskini paparan skrin
+        loadCumulativeRating(imgId);
+    } catch (err) {
+        alert("Gagal menyimpan rating. Sila cuba lagi.");
+    }
+}
 
-        // Load saved rating state on startup
-        window.addEventListener('DOMContentLoaded', () => {
-            for (let i = 1; i <= 12; i++) {
-                const savedRating = localStorage.getItem(`damia_rating_img_${i}`) || 5;
-                updateStarUI(i, parseInt(savedRating));
-            }
-        });
+async function loadCumulativeRating(imgId) {
+    try {
+        // Ambil data jumlah undi & jumlah bintang dari server
+        const resVotes = await fetch(`https://api.counterapi.dev/v1/damia_art_card_${imgId}/votes`);
+        const resStars = await fetch(`https://api.counterapi.dev/v1/damia_art_card_${imgId}/stars`);
+        
+        const dataVotes = await resVotes.json();
+        const dataStars = await resStars.json();
 
+        const totalVotes = dataVotes.count || 0;
+        const totalStars = dataStars.count || 0;
+
+        // Kira purata kumulatif: (Jumlah Bintang / Jumlah Undi)
+        let average = totalVotes > 0 ? (totalStars / totalVotes) : 5.0;
+        if (average > 5) average = 5.0; // Pengehad maksimum
+
+        updateStarUI(imgId, Math.round(average), average.toFixed(1));
+    } catch (err) {
+        // Paparan asal jika offline
+        updateStarUI(imgId, 5, "5.0");
+    }
+}
+
+function updateStarUI(imgId, starCount, scoreText) {
+    const card = document.getElementById(`rating-val-${imgId}`)?.closest('.glass-card');
+    if (!card) return;
+    
+    const starBtns = card.querySelectorAll('.star-btn');
+    starBtns.forEach((star, idx) => {
+        star.style.color = (idx < starCount) ? '#f59e0b' : '#cbd5e1';
+    });
+    
+    document.getElementById(`rating-val-${imgId}`).innerText = scoreText;
+}
+
+// Muat turun rating kumulatif untuk semua 12 lukisan semasa laman dibuka
+window.addEventListener('DOMContentLoaded', () => {
+    for (let i = 1; i <= 12; i++) {
+        loadCumulativeRating(i);
+    }
+});
         // 3. Lightbox Functionality
         function openLightbox(imageSrc, title) {
             document.getElementById('lightbox-img').src = imageSrc;
