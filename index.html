@@ -19,11 +19,18 @@
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(12px);
         }
+        .star-btn {
+            cursor: pointer;
+            transition: transform 0.1s ease, color 0.1s ease;
+        }
+        .star-btn:hover {
+            transform: scale(1.25);
+        }
     </style>
 </head>
 <body class="art-gradient text-slate-800 min-h-screen overflow-x-hidden">
 
-    <!-- Navigation Bar (Membaiki Masalah Margin Menu Mobile) -->
+    <!-- Navigation Bar -->
     <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-purple-100 shadow-sm py-2.5 px-3 sm:px-6 flex items-center justify-between gap-2">
         <!-- Tajuk Logo -->
         <div class="flex items-center space-x-1.5 shrink-0">
@@ -33,8 +40,13 @@
             </span>
         </div>
         
-        <!-- Pautan Menu (Kembali Sebaris di Skrin Telefon) -->
-        <div class="flex items-center gap-1 sm:gap-3 text-xs font-semibold shrink-0">
+        <!-- Pautan Menu & Counter Pengunjung -->
+        <div class="flex items-center gap-1.5 sm:gap-3 text-xs font-semibold shrink-0">
+            <!-- Counter Pengunjung -->
+            <div class="bg-purple-100/80 text-purple-800 px-2 py-1 rounded-full flex items-center gap-1 text-[11px] sm:text-xs border border-purple-200" title="Jumlah Pengunjung">
+                <span>👁️</span>
+                <span id="visitor-count" class="font-bold">...</span>
+            </div>
             <a href="#galeri" class="px-2 py-1 sm:px-3 sm:py-1.5 rounded-full hover:bg-purple-100 text-purple-700 transition">🎨 Galeri</a>
             <a href="#tentang" class="px-2.5 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-purple-600 text-white hover:bg-purple-700 transition shadow-sm whitespace-nowrap">✨ Mengenai</a>
         </div>
@@ -58,7 +70,7 @@
 
         <div class="mt-6">
             <a href="#galeri" class="inline-block font-art bg-purple-600 hover:bg-purple-700 text-white px-5 py-2.5 rounded-xl shadow-md transition text-xs sm:text-sm">
-                Lihat Lukisan ✏️
+                Lihat & Rate Lukisan ⭐️
             </a>
         </div>
     </section>
@@ -67,217 +79,396 @@
     <section id="galeri" class="max-w-7xl mx-auto py-6 px-4">
         <div class="text-center mb-8">
             <h2 class="font-art text-2xl md:text-4xl font-bold text-slate-900">Koleksi Karya Seni</h2>
-            <p class="text-slate-500 text-xs mt-1">Tekan lukisan untuk skrin penuh</p>
+            <p class="text-slate-500 text-xs mt-1">Tekan gambar untuk skrin penuh & berikan rating bintang ⭐️</p>
         </div>
         
         <!-- Grid Auto Layout -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             
             <!-- Kad 1 -->
-            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group cursor-pointer" onclick="openLightbox('01.png', 'Lukisan 1')">
-                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center">
+            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group">
+                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center cursor-pointer" onclick="openLightbox('01.png', 'Lukisan 1')">
                     <img src="01.png" alt="Lukisan Dhiya 1" class="w-full h-full object-contain p-1 transition duration-300 group-hover:scale-105">
                     <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">
                         ✍️ Dhiya Damia
                     </div>
                 </div>
-                <div class="px-1 mt-auto flex justify-between items-center">
-                    <div>
-                        <h3 class="font-art text-base font-bold text-slate-800">Lukisan 1</h3>
-                        <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                <div class="px-1 mt-auto">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-art text-base font-bold text-slate-800">Lukisan 1</h3>
+                            <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                        </div>
+                        <button onclick="openLightbox('01.png', 'Lukisan 1')" class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</button>
                     </div>
-                    <span class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</span>
+                    <div class="pt-2 border-t border-purple-100 flex items-center justify-between text-xs">
+                        <span class="text-slate-500 text-[11px]">Rate:</span>
+                        <div class="flex items-center gap-1">
+                            <div class="flex text-amber-400 text-sm">
+                                <span class="star-btn" onclick="rateImage(1, 1)">★</span>
+                                <span class="star-btn" onclick="rateImage(1, 2)">★</span>
+                                <span class="star-btn" onclick="rateImage(1, 3)">★</span>
+                                <span class="star-btn" onclick="rateImage(1, 4)">★</span>
+                                <span class="star-btn" onclick="rateImage(1, 5)">★</span>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-700 ml-1" id="rating-val-1">5.0</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Kad 2 -->
-            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group cursor-pointer" onclick="openLightbox('02.png', 'Lukisan 2')">
-                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center">
+            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group">
+                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center cursor-pointer" onclick="openLightbox('02.png', 'Lukisan 2')">
                     <img src="02.png" alt="Lukisan Dhiya 2" class="w-full h-full object-contain p-1 transition duration-300 group-hover:scale-105">
                     <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">
                         ✍️ Dhiya Damia
                     </div>
                 </div>
-                <div class="px-1 mt-auto flex justify-between items-center">
-                    <div>
-                        <h3 class="font-art text-base font-bold text-slate-800">Lukisan 2</h3>
-                        <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                <div class="px-1 mt-auto">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-art text-base font-bold text-slate-800">Lukisan 2</h3>
+                            <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                        </div>
+                        <button onclick="openLightbox('02.png', 'Lukisan 2')" class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</button>
                     </div>
-                    <span class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</span>
+                    <div class="pt-2 border-t border-purple-100 flex items-center justify-between text-xs">
+                        <span class="text-slate-500 text-[11px]">Rate:</span>
+                        <div class="flex items-center gap-1">
+                            <div class="flex text-amber-400 text-sm">
+                                <span class="star-btn" onclick="rateImage(2, 1)">★</span>
+                                <span class="star-btn" onclick="rateImage(2, 2)">★</span>
+                                <span class="star-btn" onclick="rateImage(2, 3)">★</span>
+                                <span class="star-btn" onclick="rateImage(2, 4)">★</span>
+                                <span class="star-btn" onclick="rateImage(2, 5)">★</span>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-700 ml-1" id="rating-val-2">5.0</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Kad 3 -->
-            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group cursor-pointer" onclick="openLightbox('03.png', 'Lukisan 3')">
-                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center">
+            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group">
+                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center cursor-pointer" onclick="openLightbox('03.png', 'Lukisan 3')">
                     <img src="03.png" alt="Lukisan Dhiya 3" class="w-full h-full object-contain p-1 transition duration-300 group-hover:scale-105">
                     <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">
                         ✍️ Dhiya Damia
                     </div>
                 </div>
-                <div class="px-1 mt-auto flex justify-between items-center">
-                    <div>
-                        <h3 class="font-art text-base font-bold text-slate-800">Lukisan 3</h3>
-                        <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                <div class="px-1 mt-auto">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-art text-base font-bold text-slate-800">Lukisan 3</h3>
+                            <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                        </div>
+                        <button onclick="openLightbox('03.png', 'Lukisan 3')" class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</button>
                     </div>
-                    <span class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</span>
+                    <div class="pt-2 border-t border-purple-100 flex items-center justify-between text-xs">
+                        <span class="text-slate-500 text-[11px]">Rate:</span>
+                        <div class="flex items-center gap-1">
+                            <div class="flex text-amber-400 text-sm">
+                                <span class="star-btn" onclick="rateImage(3, 1)">★</span>
+                                <span class="star-btn" onclick="rateImage(3, 2)">★</span>
+                                <span class="star-btn" onclick="rateImage(3, 3)">★</span>
+                                <span class="star-btn" onclick="rateImage(3, 4)">★</span>
+                                <span class="star-btn" onclick="rateImage(3, 5)">★</span>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-700 ml-1" id="rating-val-3">5.0</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Kad 4 -->
-            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group cursor-pointer" onclick="openLightbox('04.png', 'Lukisan 4')">
-                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center">
+            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group">
+                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center cursor-pointer" onclick="openLightbox('04.png', 'Lukisan 4')">
                     <img src="04.png" alt="Lukisan Dhiya 4" class="w-full h-full object-contain p-1 transition duration-300 group-hover:scale-105">
                     <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">
                         ✍️ Dhiya Damia
                     </div>
                 </div>
-                <div class="px-1 mt-auto flex justify-between items-center">
-                    <div>
-                        <h3 class="font-art text-base font-bold text-slate-800">Lukisan 4</h3>
-                        <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                <div class="px-1 mt-auto">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-art text-base font-bold text-slate-800">Lukisan 4</h3>
+                            <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                        </div>
+                        <button onclick="openLightbox('04.png', 'Lukisan 4')" class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</button>
                     </div>
-                    <span class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</span>
+                    <div class="pt-2 border-t border-purple-100 flex items-center justify-between text-xs">
+                        <span class="text-slate-500 text-[11px]">Rate:</span>
+                        <div class="flex items-center gap-1">
+                            <div class="flex text-amber-400 text-sm">
+                                <span class="star-btn" onclick="rateImage(4, 1)">★</span>
+                                <span class="star-btn" onclick="rateImage(4, 2)">★</span>
+                                <span class="star-btn" onclick="rateImage(4, 3)">★</span>
+                                <span class="star-btn" onclick="rateImage(4, 4)">★</span>
+                                <span class="star-btn" onclick="rateImage(4, 5)">★</span>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-700 ml-1" id="rating-val-4">5.0</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Kad 5 -->
-            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group cursor-pointer" onclick="openLightbox('05.png', 'Lukisan 5')">
-                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center">
+            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group">
+                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center cursor-pointer" onclick="openLightbox('05.png', 'Lukisan 5')">
                     <img src="05.png" alt="Lukisan Dhiya 5" class="w-full h-full object-contain p-1 transition duration-300 group-hover:scale-105">
                     <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">
                         ✍️ Dhiya Damia
                     </div>
                 </div>
-                <div class="px-1 mt-auto flex justify-between items-center">
-                    <div>
-                        <h3 class="font-art text-base font-bold text-slate-800">Lukisan 5</h3>
-                        <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                <div class="px-1 mt-auto">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-art text-base font-bold text-slate-800">Lukisan 5</h3>
+                            <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                        </div>
+                        <button onclick="openLightbox('05.png', 'Lukisan 5')" class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</button>
                     </div>
-                    <span class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</span>
+                    <div class="pt-2 border-t border-purple-100 flex items-center justify-between text-xs">
+                        <span class="text-slate-500 text-[11px]">Rate:</span>
+                        <div class="flex items-center gap-1">
+                            <div class="flex text-amber-400 text-sm">
+                                <span class="star-btn" onclick="rateImage(5, 1)">★</span>
+                                <span class="star-btn" onclick="rateImage(5, 2)">★</span>
+                                <span class="star-btn" onclick="rateImage(5, 3)">★</span>
+                                <span class="star-btn" onclick="rateImage(5, 4)">★</span>
+                                <span class="star-btn" onclick="rateImage(5, 5)">★</span>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-700 ml-1" id="rating-val-5">5.0</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Kad 6 -->
-            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group cursor-pointer" onclick="openLightbox('06.png', 'Lukisan 6')">
-                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center">
+            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group">
+                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center cursor-pointer" onclick="openLightbox('06.png', 'Lukisan 6')">
                     <img src="06.png" alt="Lukisan Dhiya 6" class="w-full h-full object-contain p-1 transition duration-300 group-hover:scale-105">
                     <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">
                         ✍️ Dhiya Damia
                     </div>
                 </div>
-                <div class="px-1 mt-auto flex justify-between items-center">
-                    <div>
-                        <h3 class="font-art text-base font-bold text-slate-800">Lukisan 6</h3>
-                        <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                <div class="px-1 mt-auto">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-art text-base font-bold text-slate-800">Lukisan 6</h3>
+                            <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                        </div>
+                        <button onclick="openLightbox('06.png', 'Lukisan 6')" class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</button>
                     </div>
-                    <span class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</span>
+                    <div class="pt-2 border-t border-purple-100 flex items-center justify-between text-xs">
+                        <span class="text-slate-500 text-[11px]">Rate:</span>
+                        <div class="flex items-center gap-1">
+                            <div class="flex text-amber-400 text-sm">
+                                <span class="star-btn" onclick="rateImage(6, 1)">★</span>
+                                <span class="star-btn" onclick="rateImage(6, 2)">★</span>
+                                <span class="star-btn" onclick="rateImage(6, 3)">★</span>
+                                <span class="star-btn" onclick="rateImage(6, 4)">★</span>
+                                <span class="star-btn" onclick="rateImage(6, 5)">★</span>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-700 ml-1" id="rating-val-6">5.0</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Kad 7 -->
-            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group cursor-pointer" onclick="openLightbox('07.png', 'Lukisan 7')">
-                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center">
+            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group">
+                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center cursor-pointer" onclick="openLightbox('07.png', 'Lukisan 7')">
                     <img src="07.png" alt="Lukisan Dhiya 7" class="w-full h-full object-contain p-1 transition duration-300 group-hover:scale-105">
                     <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">
                         ✍️ Dhiya Damia
                     </div>
                 </div>
-                <div class="px-1 mt-auto flex justify-between items-center">
-                    <div>
-                        <h3 class="font-art text-base font-bold text-slate-800">Lukisan 7</h3>
-                        <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                <div class="px-1 mt-auto">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-art text-base font-bold text-slate-800">Lukisan 7</h3>
+                            <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                        </div>
+                        <button onclick="openLightbox('07.png', 'Lukisan 7')" class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</button>
                     </div>
-                    <span class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</span>
+                    <div class="pt-2 border-t border-purple-100 flex items-center justify-between text-xs">
+                        <span class="text-slate-500 text-[11px]">Rate:</span>
+                        <div class="flex items-center gap-1">
+                            <div class="flex text-amber-400 text-sm">
+                                <span class="star-btn" onclick="rateImage(7, 1)">★</span>
+                                <span class="star-btn" onclick="rateImage(7, 2)">★</span>
+                                <span class="star-btn" onclick="rateImage(7, 3)">★</span>
+                                <span class="star-btn" onclick="rateImage(7, 4)">★</span>
+                                <span class="star-btn" onclick="rateImage(7, 5)">★</span>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-700 ml-1" id="rating-val-7">5.0</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Kad 8 -->
-            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group cursor-pointer" onclick="openLightbox('08.png', 'Lukisan 8')">
-                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center">
+            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group">
+                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center cursor-pointer" onclick="openLightbox('08.png', 'Lukisan 8')">
                     <img src="08.png" alt="Lukisan Dhiya 8" class="w-full h-full object-contain p-1 transition duration-300 group-hover:scale-105">
                     <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">
                         ✍️ Dhiya Damia
                     </div>
                 </div>
-                <div class="px-1 mt-auto flex justify-between items-center">
-                    <div>
-                        <h3 class="font-art text-base font-bold text-slate-800">Lukisan 8</h3>
-                        <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                <div class="px-1 mt-auto">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-art text-base font-bold text-slate-800">Lukisan 8</h3>
+                            <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                        </div>
+                        <button onclick="openLightbox('08.png', 'Lukisan 8')" class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</button>
                     </div>
-                    <span class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</span>
+                    <div class="pt-2 border-t border-purple-100 flex items-center justify-between text-xs">
+                        <span class="text-slate-500 text-[11px]">Rate:</span>
+                        <div class="flex items-center gap-1">
+                            <div class="flex text-amber-400 text-sm">
+                                <span class="star-btn" onclick="rateImage(8, 1)">★</span>
+                                <span class="star-btn" onclick="rateImage(8, 2)">★</span>
+                                <span class="star-btn" onclick="rateImage(8, 3)">★</span>
+                                <span class="star-btn" onclick="rateImage(8, 4)">★</span>
+                                <span class="star-btn" onclick="rateImage(8, 5)">★</span>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-700 ml-1" id="rating-val-8">5.0</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Kad 9 -->
-            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group cursor-pointer" onclick="openLightbox('09.png', 'Lukisan 9')">
-                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center">
+            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group">
+                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center cursor-pointer" onclick="openLightbox('09.png', 'Lukisan 9')">
                     <img src="09.png" alt="Lukisan Dhiya 9" class="w-full h-full object-contain p-1 transition duration-300 group-hover:scale-105">
                     <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">
                         ✍️ Dhiya Damia
                     </div>
                 </div>
-                <div class="px-1 mt-auto flex justify-between items-center">
-                    <div>
-                        <h3 class="font-art text-base font-bold text-slate-800">Lukisan 9</h3>
-                        <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                <div class="px-1 mt-auto">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-art text-base font-bold text-slate-800">Lukisan 9</h3>
+                            <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                        </div>
+                        <button onclick="openLightbox('09.png', 'Lukisan 9')" class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</button>
                     </div>
-                    <span class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</span>
+                    <div class="pt-2 border-t border-purple-100 flex items-center justify-between text-xs">
+                        <span class="text-slate-500 text-[11px]">Rate:</span>
+                        <div class="flex items-center gap-1">
+                            <div class="flex text-amber-400 text-sm">
+                                <span class="star-btn" onclick="rateImage(9, 1)">★</span>
+                                <span class="star-btn" onclick="rateImage(9, 2)">★</span>
+                                <span class="star-btn" onclick="rateImage(9, 3)">★</span>
+                                <span class="star-btn" onclick="rateImage(9, 4)">★</span>
+                                <span class="star-btn" onclick="rateImage(9, 5)">★</span>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-700 ml-1" id="rating-val-9">5.0</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Kad 10 -->
-            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group cursor-pointer" onclick="openLightbox('10.png', 'Lukisan 10')">
-                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center">
+            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group">
+                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center cursor-pointer" onclick="openLightbox('10.png', 'Lukisan 10')">
                     <img src="10.png" alt="Lukisan Dhiya 10" class="w-full h-full object-contain p-1 transition duration-300 group-hover:scale-105">
                     <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">
                         ✍️ Dhiya Damia
                     </div>
                 </div>
-                <div class="px-1 mt-auto flex justify-between items-center">
-                    <div>
-                        <h3 class="font-art text-base font-bold text-slate-800">Lukisan 10</h3>
-                        <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                <div class="px-1 mt-auto">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-art text-base font-bold text-slate-800">Lukisan 10</h3>
+                            <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                        </div>
+                        <button onclick="openLightbox('10.png', 'Lukisan 10')" class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</button>
                     </div>
-                    <span class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</span>
+                    <div class="pt-2 border-t border-purple-100 flex items-center justify-between text-xs">
+                        <span class="text-slate-500 text-[11px]">Rate:</span>
+                        <div class="flex items-center gap-1">
+                            <div class="flex text-amber-400 text-sm">
+                                <span class="star-btn" onclick="rateImage(10, 1)">★</span>
+                                <span class="star-btn" onclick="rateImage(10, 2)">★</span>
+                                <span class="star-btn" onclick="rateImage(10, 3)">★</span>
+                                <span class="star-btn" onclick="rateImage(10, 4)">★</span>
+                                <span class="star-btn" onclick="rateImage(10, 5)">★</span>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-700 ml-1" id="rating-val-10">5.0</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-
-             <!-- Kad 11 -->
-            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group cursor-pointer" onclick="openLightbox('11.png', 'Lukisan 11')">
-                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center">
+            <!-- Kad 11 -->
+            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group">
+                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center cursor-pointer" onclick="openLightbox('11.png', 'Lukisan 11')">
                     <img src="11.png" alt="Lukisan Dhiya 11" class="w-full h-full object-contain p-1 transition duration-300 group-hover:scale-105">
                     <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">
                         ✍️ Dhiya Damia
                     </div>
                 </div>
-                <div class="px-1 mt-auto flex justify-between items-center">
-                    <div>
-                        <h3 class="font-art text-base font-bold text-slate-800">Lukisan 11</h3>
-                        <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                <div class="px-1 mt-auto">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-art text-base font-bold text-slate-800">Lukisan 11</h3>
+                            <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                        </div>
+                        <button onclick="openLightbox('11.png', 'Lukisan 11')" class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</button>
                     </div>
-                    <span class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</span>
+                    <div class="pt-2 border-t border-purple-100 flex items-center justify-between text-xs">
+                        <span class="text-slate-500 text-[11px]">Rate:</span>
+                        <div class="flex items-center gap-1">
+                            <div class="flex text-amber-400 text-sm">
+                                <span class="star-btn" onclick="rateImage(11, 1)">★</span>
+                                <span class="star-btn" onclick="rateImage(11, 2)">★</span>
+                                <span class="star-btn" onclick="rateImage(11, 3)">★</span>
+                                <span class="star-btn" onclick="rateImage(11, 4)">★</span>
+                                <span class="star-btn" onclick="rateImage(11, 5)">★</span>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-700 ml-1" id="rating-val-11">5.0</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-             <!-- Kad 12 -->
-            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group cursor-pointer" onclick="openLightbox('12.png', 'Lukisan 12')">
-                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center">
+            <!-- Kad 12 -->
+            <div class="glass-card rounded-2xl p-3 border border-white/80 shadow-sm flex flex-col h-full group">
+                <div class="relative w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden mb-3 border border-purple-50 flex items-center justify-center cursor-pointer" onclick="openLightbox('12.png', 'Lukisan 12')">
                     <img src="12.png" alt="Lukisan Dhiya 12" class="w-full h-full object-contain p-1 transition duration-300 group-hover:scale-105">
                     <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">
                         ✍️ Dhiya Damia
                     </div>
                 </div>
-                <div class="px-1 mt-auto flex justify-between items-center">
-                    <div>
-                        <h3 class="font-art text-base font-bold text-slate-800">Lukisan 11</h3>
-                        <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                <div class="px-1 mt-auto">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="font-art text-base font-bold text-slate-800">Lukisan 12</h3>
+                            <p class="text-[11px] text-purple-600 font-medium">Procreate Art</p>
+                        </div>
+                        <button onclick="openLightbox('12.png', 'Lukisan 12')" class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</button>
                     </div>
-                    <span class="text-[11px] bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-medium">🔍 Lihat</span>
+                    <div class="pt-2 border-t border-purple-100 flex items-center justify-between text-xs">
+                        <span class="text-slate-500 text-[11px]">Rate:</span>
+                        <div class="flex items-center gap-1">
+                            <div class="flex text-amber-400 text-sm">
+                                <span class="star-btn" onclick="rateImage(12, 1)">★</span>
+                                <span class="star-btn" onclick="rateImage(12, 2)">★</span>
+                                <span class="star-btn" onclick="rateImage(12, 3)">★</span>
+                                <span class="star-btn" onclick="rateImage(12, 4)">★</span>
+                                <span class="star-btn" onclick="rateImage(12, 5)">★</span>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-700 ml-1" id="rating-val-12">5.0</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
+
         </div>
     </section>
 
@@ -318,8 +509,56 @@
         <p>© 2026 Portfolio Seni Dhiya Damia • Diuruskan dengan kasih sayang oleh Ibunda Tercinta 💕</p>
     </footer>
 
-    <!-- JavaScript Full Screen -->
+    <!-- JavaScript Logic -->
     <script>
+        // 1. Visitor Counter API
+        async function updateVisitorCount() {
+            try {
+                const res = await fetch('https://api.counterapi.dev/v1/dhiyadamia_portfolio/visitors/up');
+                const data = await res.json();
+                if (data.count) {
+                    document.getElementById('visitor-count').innerText = data.count.toLocaleString();
+                } else {
+                    document.getElementById('visitor-count').innerText = "1";
+                }
+            } catch (err) {
+                document.getElementById('visitor-count').innerText = "100+";
+            }
+        }
+        updateVisitorCount();
+
+        // 2. Interactive Star Rating Engine
+        function rateImage(imgId, stars) {
+            localStorage.setItem(`damia_rating_img_${imgId}`, stars);
+            updateStarUI(imgId, stars);
+            alert(`Terima kasih! Anda telah memberi ${stars} ⭐️ untuk Lukisan ${imgId}.`);
+        }
+
+        function updateStarUI(imgId, stars) {
+            const card = document.getElementById(`rating-val-${imgId}`)?.closest('.glass-card');
+            if (!card) return;
+            
+            const starBtns = card.querySelectorAll('.star-btn');
+            starBtns.forEach((star, idx) => {
+                if (idx < stars) {
+                    star.style.color = '#f59e0b'; // Gold
+                } else {
+                    star.style.color = '#cbd5e1'; // Gray
+                }
+            });
+            
+            document.getElementById(`rating-val-${imgId}`).innerText = parseFloat(stars).toFixed(1);
+        }
+
+        // Load saved rating state on startup
+        window.addEventListener('DOMContentLoaded', () => {
+            for (let i = 1; i <= 12; i++) {
+                const savedRating = localStorage.getItem(`damia_rating_img_${i}`) || 5;
+                updateStarUI(i, parseInt(savedRating));
+            }
+        });
+
+        // 3. Lightbox Functionality
         function openLightbox(imageSrc, title) {
             document.getElementById('lightbox-img').src = imageSrc;
             document.getElementById('lightbox-title').innerText = title;
