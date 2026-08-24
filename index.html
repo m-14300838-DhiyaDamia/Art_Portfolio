@@ -512,20 +512,28 @@
     <!-- JavaScript Logic -->
     <script>
         // 1. Visitor Counter API
-        async function updateVisitorCount() {
-            try {
-                const res = await fetch('https://api.counterapi.dev/v1/dhiyadamia_portfolio/visitors/up');
-                const data = await res.json();
-                if (data.count) {
-                    document.getElementById('visitor-count').innerText = data.count.toLocaleString();
-                } else {
-                    document.getElementById('visitor-count').innerText = "1";
-                }
-            } catch (err) {
-                document.getElementById('visitor-count').innerText = "100+";
-            }
+       async function updateVisitorCount() {
+    const countElement = document.getElementById('visitor-count');
+    
+    // Simpan & Tambah kiraan pengunjung tempatan
+    let localVisits = parseInt(localStorage.getItem('dhiya_views') || '120');
+    localVisits += 1;
+    localStorage.setItem('dhiya_views', localVisits);
+
+    try {
+        const res = await fetch('https://api.counterapi.dev/v1/dhiya_art_gallery_2026/visits/up');
+        const data = await res.json();
+        
+        if (data && data.count) {
+            countElement.innerText = data.count.toLocaleString();
+        } else {
+            countElement.innerText = localVisits.toLocaleString();
         }
-        updateVisitorCount();
+    } catch (err) {
+        countElement.innerText = localVisits.toLocaleString();
+    }
+}
+updateVisitorCount();
 
         // 2. Interactive Star Rating Engine
         function rateImage(imgId, stars) {
@@ -550,6 +558,8 @@
             document.getElementById(`rating-val-${imgId}`).innerText = parseFloat(stars).toFixed(1);
         }
 
+        
+
         // Load saved rating state on startup
         window.addEventListener('DOMContentLoaded', () => {
             for (let i = 1; i <= 12; i++) {
@@ -572,5 +582,6 @@
         }
     </script>
 
+    
 </body>
 </html>
