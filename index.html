@@ -491,7 +491,7 @@
         // 1. Visitor Counter (Auto Increment)
         function updateVisitorCount() {
             const countElement = document.getElementById('visitor-count');
-            let visits = parseInt(localStorage.getItem('dhiya_total_visitors') || '142');
+            let visits = parseInt(localStorage.getItem('dhiya_total_visitors') || '0');
             
             if (!sessionStorage.getItem('visited_this_session')) {
                 visits += 1;
