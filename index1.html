@@ -74,50 +74,8 @@
         </div>
     </section>
             
-       <!-- SECTION ANIMASI VIDEO -->
-<section id="animasi" class="max-w-7xl mx-auto py-12 px-4 border-t border-purple-100/50 mt-8">
-    <div class="text-center mb-8">
-        <h2 class="font-art text-2xl md:text-4xl font-bold text-slate-900">🎬 Animasi Video Damia</h2>
-        <p class="text-slate-500 text-xs mt-1">Koleksi video animasi pendek yang direka menggunakan Procreate</p>
-    </div>
-
-    <!-- Layout 2 Lajur: Telefon (Kiri/Atas) & Laptop (Kanan/Bawah) -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto items-start">
-        
-        <!-- PILIHAN 1: PAPARAN KHAS TELEFON (KIRI) -->
-        <div class="glass-card rounded-2xl p-5 border border-purple-200 shadow-md flex flex-col justify-between">
-            <div>
-                <div class="flex items-center gap-2 mb-3">
-                    <span class="text-xl">📱</span>
-                    <h3 class="font-art text-lg font-bold text-purple-900">Pilihan 1: Tonton di Telefon / Tablet</h3>
-                </div>
-                <p class="text-xs text-slate-600 mb-4 leading-relaxed">
-                    Jika video iframe di sebelah kanan tidak dapat dimainkan atau sangkut pada skrin telefon anda, tekan butang di bawah untuk menonton terus dengan lancar.
-                </p>
-            </div>
-
-            <!-- Kad Pratonton Visual & Butang Buka -->
-            <div class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl p-4 text-white text-center shadow-sm">
-                <p class="font-art text-base font-bold mb-1">Diari Pelajar SeKOTA</p>
-                <p class="text-[11px] opacity-90 mb-3">Pagoh Smart City (Edu-STEM 2026)</p>
-                
-                <a href="https://drive.google.com/file/d/1zT5cTeI5Vbw_0m12FxAV8-l-cA1boFch/view?usp=sharing" 
-                   target="_blank" 
-                   class="inline-flex items-center justify-center gap-2 bg-white text-purple-700 font-bold px-4 py-2.5 rounded-lg shadow hover:bg-purple-50 transition w-full text-xs">
-                    <span>▶️ Buka & Mainkan Video</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- PILIHAN 2: PAPARAN 16:9 IFRAME LAPTOP (KANAN) -->
-        <div class="glass-card rounded-2xl p-5 border border-white/80 shadow-md flex flex-col">
-            <div class="flex items-center gap-2 mb-3">
-                <span class="text-xl">💻</span>
-                <h3 class="font-art text-lg font-bold text-slate-800">Pilihan 2: Pemutar Video (Laptop / PC)</h3>
-            </div>
-
-            <!-- Bekas Video 16:9 -->
-            <div class="w-full aspect-video bg-black rounded-xl overflow-hidden mb-3 shadow-inner relative">
+      
+          d-xl overflow-hidden mb-3 shadow-inner relative">
                 <iframe 
                     src="https://drive.google.com/file/d/1zT5cTeI5Vbw_0m12FxAV8-l-cA1boFch/preview" 
                     class="w-full h-full border-0 rounded-xl" 
@@ -130,25 +88,61 @@
 
     </div>
 
-    <!-- MAKLUMAT PESERTA (DI BAHAGIAN BAWAH) -->
-    <div class="max-w-6xl mx-auto mt-6 glass-card rounded-2xl p-4 sm:p-5 border border-white/80 shadow-sm">
-        <h3 class="font-art text-base font-bold text-slate-800 mb-2">
-            Video Animasi Edu-STEM 2026: Diari Pelajar SeKOTA di Pagoh Smart City
-        </h3>
-        
-        <div class="text-xs text-slate-600 space-y-1 bg-purple-50/50 p-3.5 rounded-xl border border-purple-100">
-            <p class="font-bold text-purple-700">Nama Peserta:</p>
-            <p>1. Dhiya Damia Binti Nur Ariffin</p>
-            <p>2. Siti Aisyah Humaira Bt Syabillah</p>
-            <p>3. Sofia Binti Mohammad Azwan</p>
-            <hr class="border-purple-100 my-1.5">
-            <p><span class="font-bold text-purple-700">Guru Pembimbing:</span> Cikgu Zainul Ariffin</p>
-            <p class="text-slate-500">Sekolah Kebangsaan Kota Raja, Panchor, Johor</p>
-        </div>
+    <!-- SECTION ANIMASI VIDEO -->
+<section id="animasi" class="max-w-7xl mx-auto py-12 px-4 border-t border-purple-100/50 mt-8">
+    <div class="text-center mb-8">
+        <h2 class="font-art text-2xl md:text-4xl font-bold text-slate-900">🎬 Animasi Video Damia</h2>
+        <p class="text-slate-500 text-xs mt-1">Koleksi video animasi pendek yang direka menggunakan Procreate</p>
+    </div>
 
-        <p class="text-[11px] text-slate-400 mt-2 italic">
-            Dihasilkan menggunakan lakaran digital di Procreate dan bantuan AI untuk Google Flow.
-        </p>
+    <div class="max-w-4xl mx-auto">
+        <div class="glass-card rounded-2xl p-4 sm:p-6 border border-white/80 shadow-md flex flex-col">
+            
+            <!-- 1. PEMAIN VIDEO IFRAME 16:9 (RESPONSIF TELEFON & LAPTOP) -->
+            <div class="relative w-full overflow-hidden rounded-xl bg-black shadow-inner mb-4" style="padding-top: 56.25%;">
+                <iframe 
+                    src="https://drive.google.com/file/d/1zT5cTeI5Vbw_0m12FxAV8-l-cA1boFch/preview" 
+                    class="absolute top-0 left-0 w-full h-full border-0 rounded-xl"
+                    allow="autoplay; fullscreen"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <!-- 2. BUTANG ALTERNATIF KHAS UNTUK PENGGUNA TELEFON (MOBILE FRIENDLY) -->
+            <div class="bg-purple-50 border border-purple-100 rounded-xl p-3 mb-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+                <div class="text-xs text-purple-900">
+                    <span class="font-bold block sm:inline">📱 Menggunakan Telefon Bimbit?</span> 
+                    <span class="text-slate-600">Jika iframe di atas lambat atau tak boleh tekan, guna butang ini:</span>
+                </div>
+                <a href="https://drive.google.com/file/d/1zT5cTeI5Vbw_0m12FxAV8-l-cA1boFch/view?usp=sharing" 
+                   target="_blank" 
+                   class="inline-flex items-center justify-center gap-1.5 bg-purple-600 hover:bg-purple-700 text-white font-bold px-4 py-2 rounded-lg shadow-sm transition text-xs shrink-0 w-full sm:w-auto">
+                    <span>▶️ Buka Direct Video</span>
+                </a>
+            </div>
+
+            <!-- 3. MAKLUMAT TAJUK & PESERTA -->
+            <div class="px-1">
+                <h3 class="font-art text-lg sm:text-2xl font-bold text-slate-800 mb-3">
+                    Video Animasi Edu-STEM 2026: Diari Pelajar SeKOTA di Pagoh Smart City
+                </h3>
+                
+                <div class="text-xs sm:text-sm text-slate-600 space-y-1 bg-purple-50/50 p-3.5 sm:p-4 rounded-xl border border-purple-100">
+                    <p class="font-bold text-purple-700">Nama Peserta:</p>
+                    <p>1. Dhiya Damia Binti Nur Ariffin</p>
+                    <p>2. Siti Aisyah Humaira Bt Syabillah</p>
+                    <p>3. Sofia Binti Mohammad Azwan</p>
+                    <hr class="border-purple-100 my-2">
+                    <p><span class="font-bold text-purple-700">Guru Pembimbing:</span> Cikgu Zainul Ariffin</p>
+                    <p class="text-slate-500">Sekolah Kebangsaan Kota Raja, Panchor, Johor</p>
+                </div>
+
+                <p class="text-xs text-slate-400 mt-3 italic">
+                    Dihasilkan menggunakan lakaran digital di Procreate dan bantuan AI untuk Google Flow.
+                </p>
+            </div>
+
+        </div>
     </div>
 </section>
 
